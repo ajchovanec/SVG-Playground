@@ -47,14 +47,14 @@
       <!-- Outer circle of logo -->
       <circle
           cx="50%" cy="50%" r="49%" stroke-width="2%"
-          stroke="red" fill="transparent" />
+          stroke="white" fill="transparent" />
     </svg>
     <script>
       let drawing = document.getElementsByClassName('drawing')[0];
       console.log('Drawing: ' + JSON.stringify(drawing));
 
       // Draw inner star circle.
-      drawCircle(logoCenterX, logoCenterY, innerStarCircleRadius, 'red');
+      drawCircle(logoCenterX, logoCenterY, innerStarCircleRadius, 'white');
 
       // Draw an invisible circle that extends out as far as the straight
       // portions of the star points.
@@ -129,9 +129,9 @@
              ${thirdOuterX * 7} ${thirdOuterY * 7}
            L ${secondInnerX * 7} ${secondInnerY * 7}
            L ${firstInnerX * 7} ${firstInnerY * 7}`);
-        starPoint.setAttribute('stroke', 'red');
+        starPoint.setAttribute('stroke', 'white');
         // starPoint.setAttribute('stroke-linejoin', 'round');
-        starPoint.setAttribute('fill', 'red');
+        starPoint.setAttribute('fill', 'white');
         drawing.append(starPoint);
 
         if (i === 5) {
@@ -252,8 +252,8 @@
            ${darkPyramidFaceBottomFrontLeftY * 7}
            ${darkPyramidFaceBottomBackLeftX * 7}
            ${darkPyramidFaceBottomBackLeftY * 7}`);
-      darkPyramidFace.setAttribute('stroke', 'green');
-      darkPyramidFace.setAttribute('fill', 'green');
+      darkPyramidFace.setAttribute('stroke', 'black');
+      darkPyramidFace.setAttribute('fill', 'black');
       drawing.append(darkPyramidFace);
 
       let pyramidFrontRightEdgeSlope =
@@ -290,11 +290,6 @@
       let brightPlatformFaceTopFrontLeftY =
           darkPlatformFaceTopBackLeftY + darkPyramidFaceBottomFrontLeftY
               - darkPyramidFaceBottomBackLeftY;
-      drawCircle(
-          brightPlatformFaceTopFrontLeftX,
-          brightPlatformFaceTopFrontLeftY,
-          0.5,
-          'magenta');
 
       let brightPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
