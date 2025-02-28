@@ -72,7 +72,7 @@
       let darkPyramidFaceTopY;
 
       let alpha = 1.07 * Math.PI / 4;
-      let beta = 0.1;
+      let beta = 0.075;
       let gamma = 7.85;
       for (let i = 0; i < 12; ++i) {
         let firstInnerPointAngle = alpha - Math.PI * i / gamma;
@@ -147,7 +147,7 @@
         }
       }
 
-      let darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.6;
+      let darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.7;
       let darkPyramidFaceBottomFrontLeftX =
           darkPyramidFaceTopX - darkPyramidFaceBottomFrontLeftToTopDeltaX;
       let darkPyramidFaceBottomFrontLeftY =
@@ -155,7 +155,7 @@
               - darkPyramidFaceBottomFrontLeftToTopDeltaX
                   * pyramidFrontLeftEdgeSlope;
 
-      let darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 5.0;
+      let darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
       let darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY = 3.6;
 
       let darkPyramidFaceBottomBackLeftX =
@@ -166,9 +166,9 @@
               - darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY;
 
       let darkPlatformFaceTopFrontLeftX =
-          darkPyramidFaceBottomFrontLeftX - 1.0;
+          darkPyramidFaceBottomFrontLeftX - 1.2;
       let darkPlatformFaceTopFrontLeftY =
-          darkPyramidFaceBottomFrontLeftY - 1.0 * pyramidFrontLeftEdgeSlope;
+          darkPyramidFaceBottomFrontLeftY - 1.2 * pyramidFrontLeftEdgeSlope;
 
       let [darkPlatformFaceBottomFrontLeftX, darkPlatformFaceBottomFrontLeftY] =
           computeLineAndCircleIntersections(
@@ -180,8 +180,7 @@
               outerCircleRadius - 1)[1];
 
       // This 48 is the horizontal distance between the left and right
-      // points of the front of the platform. It's just a coincidence that
-      // it's equal to the radius of the outer circle.
+      // points of the front of the platform.
       let brightPlatformFaceBottomFrontRightX =
           darkPlatformFaceBottomFrontLeftX + 48;
       let brightPlatformFaceBottomFrontRightY =
@@ -218,7 +217,9 @@
       let darkPlatformFaceTopBackRightY = darkPlatformFaceTopBackLeftY;
 
       let darkPlatformFaceTopFrontRightX = darkPlatformFaceTopBackRightX + 6;
-      let darkPlatformFaceTopFrontRightY = darkPlatformFaceTopBackRightY + 4;
+      let darkPlatformFaceTopFrontRightY =
+          darkPlatformFaceTopBackRightY
+              + darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY;
 
       let darkPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
@@ -288,8 +289,6 @@
           darkPlatformFaceTopBackLeftX + darkPlatformFaceTopFrontRightX
               - darkPlatformFaceTopBackRightX;
       let brightPlatformFaceTopFrontLeftY = darkPlatformFaceTopFrontRightY;
-          //darkPlatformFaceTopBackLeftY + darkPyramidFaceBottomFrontLeftY
-          //    - darkPyramidFaceBottomBackLeftY;
 
       let brightPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
