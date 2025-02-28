@@ -177,16 +177,16 @@
               pyramidFrontLeftEdgeSlope,
               /* cx= */ logoCenterX,
               /* cy= */ logoCenterY,
-              outerCircleRadius)[1];
+              outerCircleRadius - 1)[1];
 
-      // This 49 is the horizontal distance between the left and right
+      // This 48 is the horizontal distance between the left and right
       // points of the front of the platform. It's just a coincidence that
       // it's equal to the radius of the outer circle.
       let brightPlatformFaceBottomFrontRightX =
-          darkPlatformFaceBottomFrontLeftX + 49;
+          darkPlatformFaceBottomFrontLeftX + 48;
       let brightPlatformFaceBottomFrontRightY =
           Math.sqrt(
-              Math.pow(outerCircleRadius, 2)
+              Math.pow(outerCircleRadius - 1, 2)
                   - Math.pow(
                       brightPlatformFaceBottomFrontRightX - logoCenterX, 2))
           + logoCenterY;
@@ -212,7 +212,7 @@
               pyramidBackLeftEdgeSlope,
               /* cx= */ logoCenterX,
               /* cy= */ logoCenterY,
-              outerCircleRadius)[1];
+              outerCircleRadius - 1)[1];
 
       let darkPlatformFaceTopBackRightX = darkPlatformFaceTopBackLeftX + 23.5;
       let darkPlatformFaceTopBackRightY = darkPlatformFaceTopBackLeftY;
@@ -234,7 +234,7 @@
            ${darkPlatformFaceTopFrontRightY * 7}
          L ${brightPlatformFaceBottomFrontRightX * 7}
            ${brightPlatformFaceBottomFrontRightY * 7}
-         A ${outerCircleRadius * 7} ${outerCircleRadius * 7} 0 0 1
+         A ${(outerCircleRadius - 1) * 7} ${(outerCircleRadius - 1) * 7} 0 0 1
            ${darkPlatformFaceBottomBackLeftX * 7}
            ${darkPlatformFaceBottomBackLeftY * 7}`);
       darkPlatformPath.setAttribute('stroke', 'black');
@@ -303,7 +303,7 @@
            ${darkPlatformFaceTopFrontRightY * 7}
          L ${brightPlatformFaceBottomFrontRightX * 7}
            ${brightPlatformFaceBottomFrontRightY * 7}
-         A ${outerCircleRadius * 7} ${outerCircleRadius * 7} 0 0 1
+         A ${(outerCircleRadius - 1) * 7} ${(outerCircleRadius - 1) * 7} 0 0 1
            ${darkPlatformFaceBottomFrontLeftX * 7}
            ${darkPlatformFaceBottomFrontLeftY * 7}`);
       brightPlatformPath.setAttribute('stroke', 'white');
