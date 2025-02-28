@@ -169,11 +169,6 @@
           darkPyramidFaceBottomFrontLeftX - 1.0;
       let darkPlatformFaceTopFrontLeftY =
           darkPyramidFaceBottomFrontLeftY - 1.0 * pyramidFrontLeftEdgeSlope;
-      drawCircle(
-          darkPlatformFaceTopFrontLeftX,
-          darkPlatformFaceTopFrontLeftY,
-          /* radius= */ 0.5,
-          'green');
 
       let [darkPlatformFaceBottomFrontLeftX, darkPlatformFaceBottomFrontLeftY] =
           computeLineAndCircleIntersections(
@@ -221,6 +216,7 @@
 
       let darkPlatformFaceTopBackRightX = darkPlatformFaceTopBackLeftX + 23.5;
       let darkPlatformFaceTopBackRightY = darkPlatformFaceTopBackLeftY;
+
       let darkPlatformFaceTopFrontRightX = darkPlatformFaceTopBackRightX + 6;
       let darkPlatformFaceTopFrontRightY = darkPlatformFaceTopBackRightY + 4;
 
@@ -274,11 +270,6 @@
                    darkPyramidFaceBottomFrontLeftY,
                    /* slope2= */ 0);
 
-      drawCircle(
-          brightPyramidFaceBottomFrontRightX,
-          brightPyramidFaceBottomFrontRightY,
-          0.5,
-          'white');
       let brightPyramidFace =
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
       brightPyramidFace.setAttribute(
@@ -292,6 +283,38 @@
       brightPyramidFace.setAttribute('stroke', 'white');
       brightPyramidFace.setAttribute('fill', 'white');
       drawing.append(brightPyramidFace);
+
+      let brightPlatformFaceTopFrontLeftX =
+          darkPlatformFaceTopBackLeftX + darkPlatformFaceTopFrontRightX
+              - darkPlatformFaceTopBackRightX;
+      let brightPlatformFaceTopFrontLeftY =
+          darkPlatformFaceTopBackLeftY + darkPyramidFaceBottomFrontLeftY
+              - darkPyramidFaceBottomBackLeftY;
+      drawCircle(
+          brightPlatformFaceTopFrontLeftX,
+          brightPlatformFaceTopFrontLeftY,
+          0.5,
+          'magenta');
+
+      let brightPlatformPath =
+          document.createElementNS("http://www.w3.org/2000/svg", 'path');
+      brightPlatformPath.setAttribute(
+        'd',
+        `M ${darkPlatformFaceBottomFrontLeftX * 7}
+           ${darkPlatformFaceBottomFrontLeftY * 7}
+         L ${brightPlatformFaceTopFrontLeftX * 7}
+           ${brightPlatformFaceTopFrontLeftY * 7}
+         L ${darkPlatformFaceTopFrontRightX * 7}
+           ${darkPlatformFaceTopFrontRightY * 7}
+         L ${brightPlatformFaceBottomFrontRightX * 7}
+           ${brightPlatformFaceBottomFrontRightY * 7}
+         A ${outerCircleRadius * 7} ${outerCircleRadius * 7} 0 0 1
+           ${darkPlatformFaceBottomFrontLeftX * 7}
+           ${darkPlatformFaceBottomFrontLeftY * 7}`);
+      brightPlatformPath.setAttribute('stroke', 'white');
+      //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
+      brightPlatformPath.setAttribute('fill', 'white');
+      drawing.append(brightPlatformPath);
 
       function computeLinesIntersection(x1, y1, slope1, x2, y2, slope2) {
         return [
