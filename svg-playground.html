@@ -4,6 +4,8 @@
     const innerStarCircleRadius = 14.75;
     const outerStarPointTipDistance = 50;
     const outerStarPointStraightDistance = 40;
+    const logoCenterX = 50;
+    const logoCenterY = 50;
   </script>
   <style type="text/css">
     .parent {
@@ -52,13 +54,17 @@
       console.log('Drawing: ' + JSON.stringify(drawing));
 
       // Draw inner star circle.
-      drawCircle('50', '50', innerStarCircleRadius, 'red');
+      drawCircle(logoCenterX, logoCenterY, innerStarCircleRadius, 'red');
 
       // Draw an invisible circle that extends out as far as the straight
       // portions of the star points.
       //
       // TODO: Is this needed?
-      drawCircle('50', '50', outerStarPointStraightDistance, 'transparent');
+      drawCircle(
+        logoCenterX,
+        logoCenterY,
+        outerStarPointStraightDistance,
+        'transparent');
 
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
@@ -71,41 +77,47 @@
       for (let i = 0; i < 12; ++i) {
         let firstInnerPointAngle = alpha - Math.PI * i / gamma;
         let firstInnerX =
-            innerStarCircleRadius * Math.cos(firstInnerPointAngle) + 50;
+            innerStarCircleRadius * Math.cos(firstInnerPointAngle)
+                + logoCenterX;
         let firstInnerY =
-            innerStarCircleRadius * Math.sin(firstInnerPointAngle) + 50;
+            innerStarCircleRadius * Math.sin(firstInnerPointAngle)
+                + logoCenterY;
 
         let firstOuterPointAngle =
             alpha - (1 - beta) * Math.PI / (2 * gamma) - Math.PI * i / gamma;
         let firstOuterX =
-            outerStarPointStraightDistance
-                * Math.cos(firstOuterPointAngle) + 50;
+            outerStarPointStraightDistance * Math.cos(firstOuterPointAngle)
+                + logoCenterX;
         let firstOuterY =
-            outerStarPointStraightDistance
-                * Math.sin(firstOuterPointAngle) + 50;
+            outerStarPointStraightDistance * Math.sin(firstOuterPointAngle)
+                + logoCenterY;
 
         let secondOuterPointAngle =
             alpha - 1 * Math.PI / (2 * gamma) - Math.PI * i / gamma;
         let secondOuterX =
-            outerStarPointTipDistance * Math.cos(secondOuterPointAngle) + 50;
+            outerStarPointTipDistance * Math.cos(secondOuterPointAngle)
+                + logoCenterX;
         let secondOuterY =
-            outerStarPointTipDistance * Math.sin(secondOuterPointAngle) + 50;
+            outerStarPointTipDistance * Math.sin(secondOuterPointAngle)
+                + logoCenterY;
 
         let thirdOuterPointAngle =
             alpha - (1 + beta) * Math.PI / (2 * gamma) - Math.PI * i / gamma;
         let thirdOuterX =
-            outerStarPointStraightDistance
-                * Math.cos(thirdOuterPointAngle) + 50;
+            outerStarPointStraightDistance * Math.cos(thirdOuterPointAngle)
+                + logoCenterX;
         let thirdOuterY =
-            outerStarPointStraightDistance
-                * Math.sin(thirdOuterPointAngle) + 50;
+            outerStarPointStraightDistance * Math.sin(thirdOuterPointAngle)
+                + logoCenterY;
 
         let secondInnerPointAngle =
             alpha - 2 * Math.PI / (2 * gamma) - Math.PI * i / gamma;
         let secondInnerX =
-            innerStarCircleRadius * Math.cos(secondInnerPointAngle) + 50;
+            innerStarCircleRadius * Math.cos(secondInnerPointAngle)
+                + logoCenterX;
         let secondInnerY =
-            innerStarCircleRadius * Math.sin(secondInnerPointAngle) + 50;
+            innerStarCircleRadius * Math.sin(secondInnerPointAngle)
+                + logoCenterY;
 
         let starPoint =
             document.createElementNS("http://www.w3.org/2000/svg", 'path');
@@ -168,8 +180,8 @@
               darkPlatformFaceTopFrontLeftX,
               darkPlatformFaceTopFrontLeftY,
               pyramidFrontLeftEdgeSlope,
-              /* cx= */ 50,
-              /* cy= */ 50,
+              /* cx= */ logoCenterX,
+              /* cy= */ logoCenterY,
               outerCircleRadius)[1];
 
       // This 49 is the horizontal distance between the left and right
@@ -181,8 +193,8 @@
           Math.sqrt(
               Math.pow(outerCircleRadius, 2)
                   - Math.pow(
-                      brightPlatformFaceBottomFrontRightX - 50, 2))
-          + 50;
+                      brightPlatformFaceBottomFrontRightX - logoCenterX, 2))
+          + logoCenterY;
 
       pyramidBackLeftEdgeSlope =
           (darkPyramidFaceTopY - darkPyramidFaceBottomBackLeftY)
@@ -203,8 +215,8 @@
               darkPlatformFaceTopBackLeftX,
               darkPlatformFaceTopBackLeftY,
               pyramidBackLeftEdgeSlope,
-              /* cx= */ 50,
-              /* cy= */ 50,
+              /* cx= */ logoCenterX,
+              /* cy= */ logoCenterY,
               outerCircleRadius)[1];
 
       let darkPlatformFaceTopBackRightX = darkPlatformFaceTopBackLeftX + 23.5;
