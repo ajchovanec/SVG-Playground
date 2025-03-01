@@ -56,16 +56,6 @@
       // Draw inner star circle.
       drawCircle(logoCenterX, logoCenterY, innerStarCircleRadius, 'white');
 
-      // Draw an invisible circle that extends out as far as the straight
-      // portions of the star points.
-      //
-      // TODO: Is this needed?
-      drawCircle(
-        logoCenterX,
-        logoCenterY,
-        outerStarPointStraightDistance,
-        'transparent');
-
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
       let darkPyramidFaceTopX;
@@ -130,7 +120,6 @@
            L ${secondInnerX * 7} ${secondInnerY * 7}
            L ${firstInnerX * 7} ${firstInnerY * 7}`);
         starPoint.setAttribute('stroke', 'white');
-        // starPoint.setAttribute('stroke-linejoin', 'round');
         starPoint.setAttribute('fill', 'white');
         drawing.append(starPoint);
 
