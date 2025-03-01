@@ -88,7 +88,7 @@
       let darkPyramidFaceTopY;
 
       let alpha = 1.07 * Math.PI / 4;
-      let beta = 0.075;
+      let beta = 0.06;
       let gamma = 7.85;
       for (let i = 0; i < 12; ++i) {
         let firstInnerPointAngle = alpha - Math.PI * i / gamma;
@@ -162,7 +162,7 @@
         }
       }
 
-      let darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.7;
+      let darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.8;
       let darkPyramidFaceBottomFrontLeftX =
           darkPyramidFaceTopX - darkPyramidFaceBottomFrontLeftToTopDeltaX;
       let darkPyramidFaceBottomFrontLeftY =
@@ -181,9 +181,9 @@
               - darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY;
 
       let darkPlatformFaceTopFrontLeftX =
-          darkPyramidFaceBottomFrontLeftX - 1.2;
+          darkPyramidFaceBottomFrontLeftX - 1.25;
       let darkPlatformFaceTopFrontLeftY =
-          darkPyramidFaceBottomFrontLeftY - 1.2 * pyramidFrontLeftEdgeSlope;
+          darkPyramidFaceBottomFrontLeftY - 1.25 * pyramidFrontLeftEdgeSlope;
 
       let [darkPlatformFaceBottomFrontLeftX, darkPlatformFaceBottomFrontLeftY] =
           computeLineAndCircleIntersections(
@@ -194,10 +194,10 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
-      // This 48 is the horizontal distance between the left and right
-      // points of the front of the platform.
+      // This 49 is the horizontal distance between the left and right points of
+      // the front of the platform.
       let brightPlatformFaceBottomFrontRightX =
-          darkPlatformFaceBottomFrontLeftX + 48;
+          darkPlatformFaceBottomFrontLeftX + 49;
       let brightPlatformFaceBottomFrontRightY =
           Math.sqrt(
               Math.pow(outerCircleRadius - 1, 2)
