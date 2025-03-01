@@ -25,7 +25,7 @@
     }
     .background {
       z-index: 1;
-      background-color: black;
+      background-color: green;
       opacity: 1;
     }
     .template {
@@ -47,14 +47,40 @@
       <!-- Outer circle of logo -->
       <circle
           cx="50%" cy="50%" r="49%" stroke-width="2%"
-          stroke="white" fill="transparent" />
+          stroke="white" fill="transparent"
+          mask="url(#drawingMask)" />
     </svg>
     <script>
       let drawing = document.getElementsByClassName('drawing')[0];
       console.log('Drawing: ' + JSON.stringify(drawing));
 
+      let drawingMask =
+          document.createElementNS("http://www.w3.org/2000/svg", 'mask');
+      drawingMask.setAttribute('id', 'drawingMask');
+      drawing.append(drawingMask);
+
+      let canvasRect =
+          document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+      canvasRect.setAttribute('x', '0');
+      canvasRect.setAttribute('y', '0');
+      canvasRect.setAttribute('height', '100%');
+      canvasRect.setAttribute('width', '100%');
+      canvasRect.setAttribute('fill', 'white');
+      canvasRect.setAttribute('mask', 'url(#drawingMask)');
+      drawing.append(canvasRect);
+
+      // Draw outer logo circle.
+      drawCircle(
+          logoCenterX,
+          logoCenterY,
+          outerCircleRadius,
+          'white',
+          '2%',
+          'transparent');
+
       // Draw inner star circle.
-      drawCircle(logoCenterX, logoCenterY, innerStarCircleRadius, 'white');
+      drawCircle(
+          logoCenterX, logoCenterY, innerStarCircleRadius, 'white', 1, 'white');
 
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
@@ -121,7 +147,7 @@
            L ${firstInnerX * 7} ${firstInnerY * 7}`);
         starPoint.setAttribute('stroke', 'white');
         starPoint.setAttribute('fill', 'white');
-        drawing.append(starPoint);
+        drawingMask.append(starPoint);
 
         if (i === 5) {
           pyramidFrontLeftEdgeSlope =
@@ -230,7 +256,7 @@
       darkPlatformPath.setAttribute('stroke', 'black');
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       darkPlatformPath.setAttribute('fill', 'black');
-      drawing.append(darkPlatformPath);
+      drawingMask.append(darkPlatformPath);
 
       let darkPyramidFace =
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
@@ -244,7 +270,7 @@
            ${darkPyramidFaceBottomBackLeftY * 7}`);
       darkPyramidFace.setAttribute('stroke', 'black');
       darkPyramidFace.setAttribute('fill', 'black');
-      drawing.append(darkPyramidFace);
+      drawingMask.append(darkPyramidFace);
 
       let pyramidFrontRightEdgeSlope =
           (brightPlatformFaceBottomFrontRightY - darkPyramidFaceTopY)
@@ -272,7 +298,7 @@
            ${brightPyramidFaceBottomFrontRightY * 7}`);
       brightPyramidFace.setAttribute('stroke', 'white');
       brightPyramidFace.setAttribute('fill', 'white');
-      drawing.append(brightPyramidFace);
+      drawingMask.append(brightPyramidFace);
 
       let brightPlatformFaceTopFrontLeftX =
           darkPlatformFaceTopBackLeftX + darkPlatformFaceTopFrontRightX
@@ -297,7 +323,7 @@
       brightPlatformPath.setAttribute('stroke', 'white');
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       brightPlatformPath.setAttribute('fill', 'white');
-      drawing.append(brightPlatformPath);
+      drawingMask.append(brightPlatformPath);
 
       function computeLinesIntersection(x1, y1, slope1, x2, y2, slope2) {
         return [
@@ -320,15 +346,16 @@
         return [[x1, y1], [x2, y2]];
       }
 
-      function drawCircle(cx, cy, radius, color) {
+      function drawCircle(cx, cy, radius, stroke, strokeWidth, fill) {
         let circle =
             document.createElementNS("http://www.w3.org/2000/svg", 'circle');
         circle.setAttribute('cx', `${cx}%`);
         circle.setAttribute('cy', `${cy}%`);
         circle.setAttribute('r', `${radius}%`);
-        circle.setAttribute('stroke', color);
-        circle.setAttribute('fill', color);
-        drawing.append(circle);
+        circle.setAttribute('stroke', stroke);
+        circle.setAttribute('stroke-width', strokeWidth);
+        circle.setAttribute('fill', fill);
+        drawingMask.append(circle);
       }
     </script>
   </div>
