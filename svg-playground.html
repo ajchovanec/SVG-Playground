@@ -1,11 +1,25 @@
 <head>
   <script>
+    const percentToPixelsFactor = 7;
+
     const outerCircleRadius = 49;
     const innerStarCircleRadius = 14.75;
     const outerStarPointTipDistance = 50;
     const outerStarPointStraightDistance = 40;
     const logoCenterX = 50;
     const logoCenterY = 50;
+
+    const alphaStarParam = 0.2675;
+    const betaStarParam = 0.06;
+    const gammaStarParam = 7.85;
+
+    const darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.8;
+    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
+    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY = 3.6;
+
+    const darkPyramidFaceToDarkPlatformFaceDeltaY = 3.9601266632649286;
+
+    const brightPlatformFaceBottomLeftToRightDeltaX = 49;
   </script>
   <style type="text/css">
     .parent {
@@ -30,11 +44,11 @@
     }
     .template {
       z-index: 2;
-      opacity: 1;
+      opacity: 0;
     }
     .drawing {
       z-index: 3;
-      opacity: 0.7;
+      opacity: 1;
     }
   </style>
 </head>
@@ -44,15 +58,10 @@
     <img class="template layer" src="svg-template.png" />
 
     <svg class="drawing layer">
-      <!-- Outer circle of logo -->
-      <circle
-          cx="50%" cy="50%" r="49%" stroke-width="2%"
-          stroke="white" fill="transparent"
-          mask="url(#drawingMask)" />
+      <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
       let drawing = document.getElementsByClassName('drawing')[0];
-      console.log('Drawing: ' + JSON.stringify(drawing));
 
       let drawingMask =
           document.createElementNS("http://www.w3.org/2000/svg", 'mask');
@@ -74,24 +83,27 @@
           logoCenterX,
           logoCenterY,
           outerCircleRadius,
-          'white',
-          '2%',
-          'transparent');
+          /* stroke= */ 'white',
+          /* strokeWidth= */ '2%',
+          /* fill= */ 'transparent');
 
       // Draw inner star circle.
       drawCircle(
-          logoCenterX, logoCenterY, innerStarCircleRadius, 'white', 1, 'white');
+          logoCenterX,
+          logoCenterY,
+          innerStarCircleRadius,
+          /* stroke= */ 'white',
+          /* strokeWidth= */ 1,
+          /* fill= */ 'white');
 
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
       let darkPyramidFaceTopX;
       let darkPyramidFaceTopY;
 
-      let alpha = 1.07 * Math.PI / 4;
-      let beta = 0.06;
-      let gamma = 7.85;
       for (let i = 0; i < 12; ++i) {
-        let firstInnerPointAngle = alpha - Math.PI * i / gamma;
+        let firstInnerPointAngle =
+            alphaStarParam * Math.PI - i * Math.PI / gammaStarParam;
         let firstInnerX =
             innerStarCircleRadius * Math.cos(firstInnerPointAngle)
                 + logoCenterX;
@@ -100,7 +112,9 @@
                 + logoCenterY;
 
         let firstOuterPointAngle =
-            alpha - (1 - beta) * Math.PI / (2 * gamma) - Math.PI * i / gamma;
+            alphaStarParam * Math.PI
+                - (1 - betaStarParam) * Math.PI / (2 * gammaStarParam)
+                - i * Math.PI / gammaStarParam;
         let firstOuterX =
             outerStarPointStraightDistance * Math.cos(firstOuterPointAngle)
                 + logoCenterX;
@@ -109,7 +123,9 @@
                 + logoCenterY;
 
         let secondOuterPointAngle =
-            alpha - 1 * Math.PI / (2 * gamma) - Math.PI * i / gamma;
+            alphaStarParam * Math.PI
+                - 1 * Math.PI / (2 * gammaStarParam)
+                - i * Math.PI / gammaStarParam;
         let secondOuterX =
             outerStarPointTipDistance * Math.cos(secondOuterPointAngle)
                 + logoCenterX;
@@ -118,7 +134,9 @@
                 + logoCenterY;
 
         let thirdOuterPointAngle =
-            alpha - (1 + beta) * Math.PI / (2 * gamma) - Math.PI * i / gamma;
+            alphaStarParam * Math.PI
+                - (1 + betaStarParam) * Math.PI / (2 * gammaStarParam)
+                - i * Math.PI / gammaStarParam;
         let thirdOuterX =
             outerStarPointStraightDistance * Math.cos(thirdOuterPointAngle)
                 + logoCenterX;
@@ -127,7 +145,8 @@
                 + logoCenterY;
 
         let secondInnerPointAngle =
-            alpha - 2 * Math.PI / (2 * gamma) - Math.PI * i / gamma;
+            alphaStarParam * Math.PI - 2 * Math.PI / (2 * gammaStarParam)
+                - i * Math.PI / gammaStarParam;
         let secondInnerX =
             innerStarCircleRadius * Math.cos(secondInnerPointAngle)
                 + logoCenterX;
@@ -139,12 +158,18 @@
             document.createElementNS("http://www.w3.org/2000/svg", 'path');
         starPoint.setAttribute(
           'd',
-          `M ${firstInnerX * 7} ${firstInnerY * 7}
-           L ${firstOuterX * 7} ${firstOuterY * 7}
-           S ${secondOuterX * 7} ${secondOuterY * 7}
-             ${thirdOuterX * 7} ${thirdOuterY * 7}
-           L ${secondInnerX * 7} ${secondInnerY * 7}
-           L ${firstInnerX * 7} ${firstInnerY * 7}`);
+          `M ${firstInnerX * percentToPixelsFactor}
+             ${firstInnerY * percentToPixelsFactor}
+           L ${firstOuterX * percentToPixelsFactor}
+             ${firstOuterY * percentToPixelsFactor}
+           S ${secondOuterX * percentToPixelsFactor}
+             ${secondOuterY * percentToPixelsFactor}
+             ${thirdOuterX * percentToPixelsFactor}
+             ${thirdOuterY * percentToPixelsFactor}
+           L ${secondInnerX * percentToPixelsFactor}
+             ${secondInnerY * percentToPixelsFactor}
+           L ${firstInnerX * percentToPixelsFactor}
+             ${firstInnerY * percentToPixelsFactor}`);
         starPoint.setAttribute('stroke', 'white');
         starPoint.setAttribute('fill', 'white');
         drawingMask.append(starPoint);
@@ -162,16 +187,12 @@
         }
       }
 
-      let darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.8;
       let darkPyramidFaceBottomFrontLeftX =
           darkPyramidFaceTopX - darkPyramidFaceBottomFrontLeftToTopDeltaX;
       let darkPyramidFaceBottomFrontLeftY =
           darkPyramidFaceTopY
               - darkPyramidFaceBottomFrontLeftToTopDeltaX
                   * pyramidFrontLeftEdgeSlope;
-
-      let darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
-      let darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY = 3.6;
 
       let darkPyramidFaceBottomBackLeftX =
           darkPyramidFaceBottomFrontLeftX
@@ -181,9 +202,12 @@
               - darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY;
 
       let darkPlatformFaceTopFrontLeftX =
-          darkPyramidFaceBottomFrontLeftX - 1.25;
+          darkPyramidFaceBottomFrontLeftX
+              - darkPyramidFaceToDarkPlatformFaceDeltaY
+                    / pyramidFrontLeftEdgeSlope;
       let darkPlatformFaceTopFrontLeftY =
-          darkPyramidFaceBottomFrontLeftY - 1.25 * pyramidFrontLeftEdgeSlope;
+          darkPyramidFaceBottomFrontLeftY
+              + darkPyramidFaceToDarkPlatformFaceDeltaY;
 
       let [darkPlatformFaceBottomFrontLeftX, darkPlatformFaceBottomFrontLeftY] =
           computeLineAndCircleIntersections(
@@ -194,15 +218,14 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
-      // This 49 is the horizontal distance between the left and right points of
-      // the front of the platform.
-      let brightPlatformFaceBottomFrontRightX =
-          darkPlatformFaceBottomFrontLeftX + 49;
-      let brightPlatformFaceBottomFrontRightY =
+      let brightPlatformFaceFrontRightX =
+          darkPlatformFaceBottomFrontLeftX
+              + brightPlatformFaceBottomLeftToRightDeltaX;
+      let brightPlatformFaceFrontRightY =
           Math.sqrt(
               Math.pow(outerCircleRadius - 1, 2)
                   - Math.pow(
-                      brightPlatformFaceBottomFrontRightX - logoCenterX, 2))
+                      brightPlatformFaceFrontRightX - logoCenterX, 2))
           + logoCenterY;
 
       pyramidBackLeftEdgeSlope =
@@ -240,19 +263,20 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
       darkPlatformPath.setAttribute(
         'd',
-        `M ${darkPlatformFaceBottomBackLeftX * 7}
-           ${darkPlatformFaceBottomBackLeftY * 7}
-         L ${darkPlatformFaceTopBackLeftX * 7}
-           ${darkPlatformFaceTopBackLeftY * 7}
-         L ${darkPlatformFaceTopBackRightX * 7}
-           ${darkPlatformFaceTopBackRightY * 7}
-         L ${darkPlatformFaceTopFrontRightX * 7}
-           ${darkPlatformFaceTopFrontRightY * 7}
-         L ${brightPlatformFaceBottomFrontRightX * 7}
-           ${brightPlatformFaceBottomFrontRightY * 7}
-         A ${(outerCircleRadius - 1) * 7} ${(outerCircleRadius - 1) * 7} 0 0 1
-           ${darkPlatformFaceBottomBackLeftX * 7}
-           ${darkPlatformFaceBottomBackLeftY * 7}`);
+        `M ${darkPlatformFaceBottomBackLeftX * percentToPixelsFactor}
+           ${darkPlatformFaceBottomBackLeftY * percentToPixelsFactor}
+         L ${darkPlatformFaceTopBackLeftX * percentToPixelsFactor}
+           ${darkPlatformFaceTopBackLeftY * percentToPixelsFactor}
+         L ${darkPlatformFaceTopBackRightX * percentToPixelsFactor}
+           ${darkPlatformFaceTopBackRightY * percentToPixelsFactor}
+         L ${darkPlatformFaceTopFrontRightX * percentToPixelsFactor}
+           ${darkPlatformFaceTopFrontRightY * percentToPixelsFactor}
+         L ${brightPlatformFaceFrontRightX * percentToPixelsFactor}
+           ${brightPlatformFaceFrontRightY * percentToPixelsFactor}
+         A ${(outerCircleRadius - 1) * percentToPixelsFactor}
+           ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
+           ${darkPlatformFaceBottomBackLeftX * percentToPixelsFactor}
+           ${darkPlatformFaceBottomBackLeftY * percentToPixelsFactor}`);
       darkPlatformPath.setAttribute('stroke', 'black');
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       darkPlatformPath.setAttribute('fill', 'black');
@@ -262,19 +286,19 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
       darkPyramidFace.setAttribute(
           'points',
-          `${darkPyramidFaceTopX * 7}
-           ${darkPyramidFaceTopY * 7}
-           ${darkPyramidFaceBottomFrontLeftX * 7}
-           ${darkPyramidFaceBottomFrontLeftY * 7}
-           ${darkPyramidFaceBottomBackLeftX * 7}
-           ${darkPyramidFaceBottomBackLeftY * 7}`);
+          `${darkPyramidFaceTopX * percentToPixelsFactor}
+           ${darkPyramidFaceTopY * percentToPixelsFactor}
+           ${darkPyramidFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${darkPyramidFaceBottomFrontLeftY * percentToPixelsFactor}
+           ${darkPyramidFaceBottomBackLeftX * percentToPixelsFactor}
+           ${darkPyramidFaceBottomBackLeftY * percentToPixelsFactor}`);
       darkPyramidFace.setAttribute('stroke', 'black');
       darkPyramidFace.setAttribute('fill', 'black');
       drawingMask.append(darkPyramidFace);
 
       let pyramidFrontRightEdgeSlope =
-          (brightPlatformFaceBottomFrontRightY - darkPyramidFaceTopY)
-              / (brightPlatformFaceBottomFrontRightX - darkPyramidFaceTopX);
+          (brightPlatformFaceFrontRightY - darkPyramidFaceTopY)
+              / (brightPlatformFaceFrontRightX - darkPyramidFaceTopX);
 
       let [brightPyramidFaceBottomFrontRightX,
            brightPyramidFaceBottomFrontRightY] =
@@ -290,12 +314,12 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
       brightPyramidFace.setAttribute(
           'points',
-          `${darkPyramidFaceTopX * 7}
-           ${darkPyramidFaceTopY * 7}
-           ${darkPyramidFaceBottomFrontLeftX * 7}
-           ${darkPyramidFaceBottomFrontLeftY * 7}
-           ${brightPyramidFaceBottomFrontRightX * 7}
-           ${brightPyramidFaceBottomFrontRightY * 7}`);
+          `${darkPyramidFaceTopX * percentToPixelsFactor}
+           ${darkPyramidFaceTopY * percentToPixelsFactor}
+           ${darkPyramidFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${darkPyramidFaceBottomFrontLeftY * percentToPixelsFactor}
+           ${brightPyramidFaceBottomFrontRightX * percentToPixelsFactor}
+           ${brightPyramidFaceBottomFrontRightY * percentToPixelsFactor}`);
       brightPyramidFace.setAttribute('stroke', 'white');
       brightPyramidFace.setAttribute('fill', 'white');
       drawingMask.append(brightPyramidFace);
@@ -309,17 +333,18 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
       brightPlatformPath.setAttribute(
         'd',
-        `M ${darkPlatformFaceBottomFrontLeftX * 7}
-           ${darkPlatformFaceBottomFrontLeftY * 7}
-         L ${brightPlatformFaceTopFrontLeftX * 7}
-           ${brightPlatformFaceTopFrontLeftY * 7}
-         L ${darkPlatformFaceTopFrontRightX * 7}
-           ${darkPlatformFaceTopFrontRightY * 7}
-         L ${brightPlatformFaceBottomFrontRightX * 7}
-           ${brightPlatformFaceBottomFrontRightY * 7}
-         A ${(outerCircleRadius - 1) * 7} ${(outerCircleRadius - 1) * 7} 0 0 1
-           ${darkPlatformFaceBottomFrontLeftX * 7}
-           ${darkPlatformFaceBottomFrontLeftY * 7}`);
+        `M ${darkPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${darkPlatformFaceBottomFrontLeftY * percentToPixelsFactor}
+         L ${brightPlatformFaceTopFrontLeftX * percentToPixelsFactor}
+           ${brightPlatformFaceTopFrontLeftY * percentToPixelsFactor}
+         L ${darkPlatformFaceTopFrontRightX * percentToPixelsFactor}
+           ${darkPlatformFaceTopFrontRightY * percentToPixelsFactor}
+         L ${brightPlatformFaceFrontRightX * percentToPixelsFactor}
+           ${brightPlatformFaceFrontRightY * percentToPixelsFactor}
+         A ${(outerCircleRadius - 1) * percentToPixelsFactor}
+           ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
+           ${darkPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${darkPlatformFaceBottomFrontLeftY * percentToPixelsFactor}`);
       brightPlatformPath.setAttribute('stroke', 'white');
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       brightPlatformPath.setAttribute('fill', 'white');
