@@ -58,6 +58,15 @@
     <img class="template layer" src="svg-template.png" />
 
     <svg class="drawing layer">
+      <!-- Outer circle of logo.
+
+           TODO: Figure out how to remove this without causing a visible
+           boundary between the circle and the bottom of the platform. -->
+      <circle
+          cx="50%" cy="50%" r="49%" stroke-width="2%"
+          stroke="white" fill="transparent"
+          mask="url(#drawingMask)" />
+
       <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
