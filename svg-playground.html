@@ -11,7 +11,7 @@
 
     const alphaStarParam = 0.2675;
     const betaStarParam = 0.06;
-    const gammaStarParam = 7.85;
+    const gammaStarParam = 15.7;
 
     const darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.8;
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
@@ -112,7 +112,8 @@
 
       for (let i = 0; i < 12; ++i) {
         let firstInnerPointAngle =
-            alphaStarParam * Math.PI - i * Math.PI / gammaStarParam;
+            alphaStarParam * Math.PI
+                - 2 * i * Math.PI / gammaStarParam;
         let firstInnerX =
             innerStarCircleRadius * Math.cos(firstInnerPointAngle)
                 + logoCenterX;
@@ -122,8 +123,8 @@
 
         let firstOuterPointAngle =
             alphaStarParam * Math.PI
-                - (1 - betaStarParam) * Math.PI / (2 * gammaStarParam)
-                - i * Math.PI / gammaStarParam;
+                - 2 * i * Math.PI / gammaStarParam
+                - (1 - betaStarParam) * Math.PI / gammaStarParam;
         let firstOuterX =
             outerStarPointStraightDistance * Math.cos(firstOuterPointAngle)
                 + logoCenterX;
@@ -133,8 +134,8 @@
 
         let secondOuterPointAngle =
             alphaStarParam * Math.PI
-                - 1 * Math.PI / (2 * gammaStarParam)
-                - i * Math.PI / gammaStarParam;
+                - 2 * i * Math.PI / gammaStarParam
+                - 1 * Math.PI / gammaStarParam;
         let secondOuterX =
             outerStarPointTipDistance * Math.cos(secondOuterPointAngle)
                 + logoCenterX;
@@ -144,8 +145,8 @@
 
         let thirdOuterPointAngle =
             alphaStarParam * Math.PI
-                - (1 + betaStarParam) * Math.PI / (2 * gammaStarParam)
-                - i * Math.PI / gammaStarParam;
+                - 2 * i * Math.PI / gammaStarParam
+                - (1 + betaStarParam) * Math.PI / gammaStarParam;
         let thirdOuterX =
             outerStarPointStraightDistance * Math.cos(thirdOuterPointAngle)
                 + logoCenterX;
@@ -154,8 +155,9 @@
                 + logoCenterY;
 
         let secondInnerPointAngle =
-            alphaStarParam * Math.PI - 2 * Math.PI / (2 * gammaStarParam)
-                - i * Math.PI / gammaStarParam;
+            alphaStarParam * Math.PI
+                - 2 * Math.PI / gammaStarParam
+                - 2 * i * Math.PI / gammaStarParam;
         let secondInnerX =
             innerStarCircleRadius * Math.cos(secondInnerPointAngle)
                 + logoCenterX;
