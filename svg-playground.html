@@ -17,9 +17,6 @@
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY = 3.6;
 
-    // TODO: Increase vertical distance between pyramid and platform to more
-    // closely match template, and adjust other distances as needed. Ensure that
-    // all lines are parallel that should be.
     const darkPyramidFaceToDarkPlatformFaceDeltaY = 3.96;
 
     const brightPlatformFaceBottomLeftToRightDeltaX = 49;
@@ -111,8 +108,8 @@
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
       let pyramidFrontRightEdgeSlope;
-      let darkPyramidFaceTopX;
-      let darkPyramidFaceTopY;
+      let pyramidTopX;
+      let pyramidTopY;
 
       for (let i = 0; i < 12; ++i) {
         let firstInnerPointAngle =
@@ -193,19 +190,18 @@
           pyramidFrontLeftEdgeSlope =
               (thirdOuterY - secondInnerY) / (thirdOuterX - secondInnerX);
 
-          darkPyramidFaceTopX = secondInnerX - 1;
-          darkPyramidFaceTopY =
-              secondInnerY - 1 * pyramidFrontLeftEdgeSlope;
+          pyramidTopX = secondInnerX - 1;
+          pyramidTopY = secondInnerY - 1 * pyramidFrontLeftEdgeSlope;
           console.log(
               'slope: ' + pyramidFrontLeftEdgeSlope + ', X: '
-                  + darkPyramidFaceTopX + ', Y: ' + darkPyramidFaceTopY);
+                  + pyramidTopX + ', Y: ' + pyramidTopY);
         }
       }
 
       let darkPyramidFaceBottomFrontLeftX =
-          darkPyramidFaceTopX - darkPyramidFaceBottomFrontLeftToTopDeltaX;
+          pyramidTopX - darkPyramidFaceBottomFrontLeftToTopDeltaX;
       let darkPyramidFaceBottomFrontLeftY =
-          darkPyramidFaceTopY
+          pyramidTopY
               - darkPyramidFaceBottomFrontLeftToTopDeltaX
                   * pyramidFrontLeftEdgeSlope;
 
@@ -244,12 +240,12 @@
           + logoCenterY;
 
       pyramidBackLeftEdgeSlope =
-          (darkPyramidFaceTopY - darkPyramidFaceBottomBackLeftY)
-              / (darkPyramidFaceTopX - darkPyramidFaceBottomBackLeftX);
+          (pyramidTopY - darkPyramidFaceBottomBackLeftY)
+              / (pyramidTopX - darkPyramidFaceBottomBackLeftX);
 
       pyramidFrontRightEdgeSlope =
-          (brightPlatformFaceFrontRightY - darkPyramidFaceTopY)
-              / (brightPlatformFaceFrontRightX - darkPyramidFaceTopX);
+          (brightPlatformFaceFrontRightY - pyramidTopY)
+              / (brightPlatformFaceFrontRightX - pyramidTopX);
 
       let [darkPlatformFaceTopBackLeftX, darkPlatformFaceTopBackLeftY] =
           computeLinesIntersection(
@@ -257,8 +253,8 @@
               darkPlatformFaceTopFrontLeftY,
               darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY
                   / darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX,
-              darkPyramidFaceTopX,
-              darkPyramidFaceTopY,
+              pyramidTopX,
+              pyramidTopY,
               pyramidBackLeftEdgeSlope);
 
       let [darkPlatformFaceBottomBackLeftX, darkPlatformFaceBottomBackLeftY] =
@@ -275,8 +271,8 @@
               darkPlatformFaceTopFrontLeftX,
               darkPlatformFaceTopFrontLeftY,
               /* slope1= */ 0,
-              darkPyramidFaceTopX,
-              darkPyramidFaceTopY,
+              pyramidTopX,
+              pyramidTopY,
               pyramidFrontRightEdgeSlope);
 
       let darkPlatformFaceTopBackRightX =
@@ -311,8 +307,8 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
       darkPyramidFace.setAttribute(
           'points',
-          `${darkPyramidFaceTopX * percentToPixelsFactor}
-           ${darkPyramidFaceTopY * percentToPixelsFactor}
+          `${pyramidTopX * percentToPixelsFactor}
+           ${pyramidTopY * percentToPixelsFactor}
            ${darkPyramidFaceBottomFrontLeftX * percentToPixelsFactor}
            ${darkPyramidFaceBottomFrontLeftY * percentToPixelsFactor}
            ${darkPyramidFaceBottomBackLeftX * percentToPixelsFactor}
@@ -321,11 +317,11 @@
       darkPyramidFace.setAttribute('fill', 'black');
       drawingMask.append(darkPyramidFace);
 
-      let [brightPyramidFaceBottomFrontRightX,
-           brightPyramidFaceBottomFrontRightY] =
+      let [brightPyramidFaceBottomRightX,
+           brightPyramidFaceBottomRightY] =
                computeLinesIntersection(
-                   darkPyramidFaceTopX,
-                   darkPyramidFaceTopY,
+                   pyramidTopX,
+                   pyramidTopY,
                    pyramidFrontRightEdgeSlope,
                    darkPyramidFaceBottomFrontLeftX,
                    darkPyramidFaceBottomFrontLeftY,
@@ -335,12 +331,12 @@
           document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
       brightPyramidFace.setAttribute(
           'points',
-          `${darkPyramidFaceTopX * percentToPixelsFactor}
-           ${darkPyramidFaceTopY * percentToPixelsFactor}
+          `${pyramidTopX * percentToPixelsFactor}
+           ${pyramidTopY * percentToPixelsFactor}
            ${darkPyramidFaceBottomFrontLeftX * percentToPixelsFactor}
            ${darkPyramidFaceBottomFrontLeftY * percentToPixelsFactor}
-           ${brightPyramidFaceBottomFrontRightX * percentToPixelsFactor}
-           ${brightPyramidFaceBottomFrontRightY * percentToPixelsFactor}`);
+           ${brightPyramidFaceBottomRightX * percentToPixelsFactor}
+           ${brightPyramidFaceBottomRightY * percentToPixelsFactor}`);
       brightPyramidFace.setAttribute('stroke', 'white');
       brightPyramidFace.setAttribute('fill', 'white');
       drawingMask.append(brightPyramidFace);
