@@ -110,6 +110,7 @@
 
       let pyramidFrontLeftEdgeSlope;
       let pyramidBackLeftEdgeSlope;
+      let pyramidFrontRightEdgeSlope;
       let darkPyramidFaceTopX;
       let darkPyramidFaceTopY;
 
@@ -246,6 +247,10 @@
           (darkPyramidFaceTopY - darkPyramidFaceBottomBackLeftY)
               / (darkPyramidFaceTopX - darkPyramidFaceBottomBackLeftX);
 
+      pyramidFrontRightEdgeSlope =
+          (brightPlatformFaceFrontRightY - darkPyramidFaceTopY)
+              / (brightPlatformFaceFrontRightX - darkPyramidFaceTopX);
+
       let [darkPlatformFaceTopBackLeftX, darkPlatformFaceTopBackLeftY] =
           computeLinesIntersection(
               darkPlatformFaceTopFrontLeftX,
@@ -265,13 +270,19 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
-      let darkPlatformFaceTopBackRightX = darkPlatformFaceTopBackLeftX + 23.5;
-      let darkPlatformFaceTopBackRightY = darkPlatformFaceTopBackLeftY;
+      let [darkPlatformFaceTopFrontRightX, darkPlatformFaceTopFrontRightY] =
+          computeLinesIntersection(
+              darkPlatformFaceTopFrontLeftX,
+              darkPlatformFaceTopFrontLeftY,
+              /* slope1= */ 0,
+              darkPyramidFaceTopX,
+              darkPyramidFaceTopY,
+              pyramidFrontRightEdgeSlope);
 
-      let darkPlatformFaceTopFrontRightX = darkPlatformFaceTopBackRightX + 6;
-      let darkPlatformFaceTopFrontRightY =
-          darkPlatformFaceTopBackRightY
-              + darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY;
+      let darkPlatformFaceTopBackRightX =
+          darkPlatformFaceTopFrontRightX - darkPlatformFaceTopFrontLeftX
+              + darkPlatformFaceTopBackLeftX;
+      let darkPlatformFaceTopBackRightY = darkPlatformFaceTopBackLeftY;
 
       let darkPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
@@ -309,10 +320,6 @@
       darkPyramidFace.setAttribute('stroke', 'black');
       darkPyramidFace.setAttribute('fill', 'black');
       drawingMask.append(darkPyramidFace);
-
-      let pyramidFrontRightEdgeSlope =
-          (brightPlatformFaceFrontRightY - darkPyramidFaceTopY)
-              / (brightPlatformFaceFrontRightX - darkPyramidFaceTopX);
 
       let [brightPyramidFaceBottomFrontRightX,
            brightPyramidFaceBottomFrontRightY] =
@@ -363,6 +370,16 @@
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       brightPlatformPath.setAttribute('fill', 'white');
       drawingMask.append(brightPlatformPath);
+
+      console.log("A1: "
+          + (darkPlatformFaceTopFrontLeftX - darkPlatformFaceTopBackLeftX));
+      console.log("A2: "
+          + (darkPlatformFaceTopFrontRightX - darkPlatformFaceTopBackRightX));
+
+      console.log("B1: "
+          + (darkPlatformFaceTopFrontLeftY - darkPlatformFaceTopBackLeftY));
+      console.log("B2: "
+          + (darkPlatformFaceTopFrontRightY - darkPlatformFaceTopBackRightY));
 
       function computeLinesIntersection(x1, y1, slope1, x2, y2, slope2) {
         return [
