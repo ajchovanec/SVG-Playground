@@ -1,6 +1,9 @@
 <head>
   <script>
-    const logoColor = "white";
+    const logoColor = 'white';
+    const backgroundColor = 'green';
+    const templateOpacity = 0.8;
+    const drawingOpacity = 0.8;
 
     const percentToPixelsFactor = 7;
 
@@ -41,16 +44,13 @@
     }
     .background {
       z-index: 1;
-      background-color: green;
       opacity: 1;
     }
     .template {
       z-index: 2;
-      opacity: 0;
     }
     .drawing {
       z-index: 3;
-      opacity: 1;
     }
   </style>
 </head>
@@ -58,12 +58,18 @@
   <div class="parent">
     <div class="background layer" />
     <img class="template layer" src="svg-template.png" />
-
     <svg class="drawing layer">
       <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
+      let background = document.getElementsByClassName('background')[0];
+      background.setAttribute('style', `background-color:${backgroundColor}`);
+
+      let template = document.getElementsByClassName('template')[0];
+      template.setAttribute('style', `opacity:${templateOpacity}`);
+
       let drawing = document.getElementsByClassName('drawing')[0];
+      drawing.setAttribute('style', `opacity:${drawingOpacity}`);
 
       let drawingMask =
           document.createElementNS("http://www.w3.org/2000/svg", 'mask');
