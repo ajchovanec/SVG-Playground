@@ -4,35 +4,41 @@
     const backgroundColor = 'green';
     const templateOpacity = 0;
     const drawingOpacity = 1;
-    const useAlternateDimensions = false;
+    const useAlternateParamValues = true;
 
-    const percentToPixelsFactor = 7;
+    const percentToPixelsFactor = chooseParamValue(7);
 
-    const outerCircleRadius = 49;
-    const innerStarCircleRadius = useAlternateDimensions ? 15 : 14.75;
-    const outerStarPointTipDistance = 50;
-    const outerStarPointStraightDistance = 40;
-    const logoCenterX = 50;
-    const logoCenterY = 50;
+    const outerCircleRadius = chooseParamValue(49);
+    const innerStarCircleRadius = chooseParamValue(14.75, 15);
+    const outerStarPointTipDistance = chooseParamValue(50);
+    const outerStarPointStraightDistance = chooseParamValue(40);
+    const logoCenterX = chooseParamValue(50);
+    const logoCenterY = chooseParamValue(50);
 
     // Controls the rotational position of the rightmost starpoint.
-    const alphaStarParam = 0.2675;
+    const alphaStarParam = chooseParamValue(0.2675);
     // Controls the thickness of the starpoints.
-    const betaStarParam = 0.06;
+    const betaStarParam = chooseParamValue(0.06);
     // Controls how close the starpoints are to each other.
-    const gammaStarParam = 15.7;
+    const gammaStarParam = chooseParamValue(15.7);
 
     const darkPyramidFaceBottomFrontLeftToTopDeltaX =
-        useAlternateDimensions ? 7.0 : 6.8
+        chooseParamValue(6.8, 7);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX =
-        useAlternateDimensions ? 4.4 : 4.9
+        chooseParamValue(4.9, 4.4);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY =
-        useAlternateDimensions ? 3.4 : 3.6;
+        chooseParamValue(3.6, 3.4);
 
     const darkPyramidFaceToDarkPlatformFaceDeltaY =
-        useAlternateDimensions ? 3.6 : 4.0;
+        chooseParamValue(4.0, 3.6);
 
-    const brightPlatformFaceBottomLeftToRightDeltaX = 49;
+    const brightPlatformFaceBottomLeftToRightDeltaX = chooseParamValue(49);
+
+    function chooseParamValue(defaultParamValue, alternateParamValue = null) {
+      return useAlternateParamValues ?
+          (alternateParamValue ? alternateParamValue : defaultParamValue)
+        : defaultParamValue;
+    }
   </script>
   <style type="text/css">
     .parent {
