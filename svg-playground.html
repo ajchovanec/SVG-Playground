@@ -239,14 +239,14 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
-      let brightPlatformFaceFrontRightX =
+      let brightPlatformFaceTopFrontRightX =
           darkPlatformFaceBottomFrontLeftX
               + brightPlatformFaceBottomLeftToRightDeltaX;
-      let brightPlatformFaceFrontRightY =
+      let brightPlatformFaceTopFrontRightY =
           Math.sqrt(
               Math.pow(outerCircleRadius - 1, 2)
                   - Math.pow(
-                      brightPlatformFaceFrontRightX - logoCenterX, 2))
+                      brightPlatformFaceTopFrontRightX - logoCenterX, 2))
           + logoCenterY;
 
       pyramidBackLeftEdgeSlope =
@@ -254,8 +254,8 @@
               / (pyramidTopX - darkPyramidFaceBottomBackLeftX);
 
       pyramidFrontRightEdgeSlope =
-          (brightPlatformFaceFrontRightY - pyramidTopY)
-              / (brightPlatformFaceFrontRightX - pyramidTopX);
+          (brightPlatformFaceTopFrontRightY - pyramidTopY)
+              / (brightPlatformFaceTopFrontRightX - pyramidTopX);
 
       let [darkPlatformFaceTopBackLeftX, darkPlatformFaceTopBackLeftY] =
           computeLinesIntersection(
@@ -302,8 +302,8 @@
            ${darkPlatformFaceTopBackRightY * percentToPixelsFactor}
          L ${darkPlatformFaceTopFrontRightX * percentToPixelsFactor}
            ${darkPlatformFaceTopFrontRightY * percentToPixelsFactor}
-         L ${brightPlatformFaceFrontRightX * percentToPixelsFactor}
-           ${brightPlatformFaceFrontRightY * percentToPixelsFactor}
+         L ${brightPlatformFaceTopFrontRightX * percentToPixelsFactor}
+           ${brightPlatformFaceTopFrontRightY * percentToPixelsFactor}
          A ${(outerCircleRadius - 1) * percentToPixelsFactor}
            ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
            ${darkPlatformFaceBottomBackLeftX * percentToPixelsFactor}
@@ -366,8 +366,8 @@
            ${brightPlatformFaceTopFrontLeftY * percentToPixelsFactor}
          L ${darkPlatformFaceTopFrontRightX * percentToPixelsFactor}
            ${darkPlatformFaceTopFrontRightY * percentToPixelsFactor}
-         L ${brightPlatformFaceFrontRightX * percentToPixelsFactor}
-           ${brightPlatformFaceFrontRightY * percentToPixelsFactor}
+         L ${brightPlatformFaceTopFrontRightX * percentToPixelsFactor}
+           ${brightPlatformFaceTopFrontRightY * percentToPixelsFactor}
          A ${(outerCircleRadius - 1) * percentToPixelsFactor}
            ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
            ${darkPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
