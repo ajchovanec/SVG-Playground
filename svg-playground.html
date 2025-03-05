@@ -4,11 +4,12 @@
     const backgroundColor = 'green';
     const templateOpacity = 0;
     const drawingOpacity = 1;
+    const useAlternateDimensions = false;
 
     const percentToPixelsFactor = 7;
 
     const outerCircleRadius = 49;
-    const innerStarCircleRadius = 14.75;
+    const innerStarCircleRadius = useAlternateDimensions ? 15 : 14.75;
     const outerStarPointTipDistance = 50;
     const outerStarPointStraightDistance = 40;
     const logoCenterX = 50;
@@ -21,11 +22,15 @@
     // Controls how close the starpoints are to each other.
     const gammaStarParam = 15.7;
 
-    const darkPyramidFaceBottomFrontLeftToTopDeltaX = 6.8;
-    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX = 4.9;
-    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY = 3.6;
+    const darkPyramidFaceBottomFrontLeftToTopDeltaX =
+        useAlternateDimensions ? 7.0 : 6.8
+    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX =
+        useAlternateDimensions ? 4.4 : 4.9
+    const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY =
+        useAlternateDimensions ? 3.4 : 3.6;
 
-    const darkPyramidFaceToDarkPlatformFaceDeltaY = 4.0;
+    const darkPyramidFaceToDarkPlatformFaceDeltaY =
+        useAlternateDimensions ? 3.6 : 4.0;
 
     const brightPlatformFaceBottomLeftToRightDeltaX = 49;
   </script>
