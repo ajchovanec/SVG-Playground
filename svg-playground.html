@@ -4,21 +4,21 @@
     const backgroundColor = 'green';
     const templateOpacity = 0;
     const drawingOpacity = 1;
-    const useAlternateParamValues = false;
+    const useAlternateParamValues = true;
 
     const percentToPixelsFactor = chooseParamValue(7);
 
     const outerCircleRadius = chooseParamValue(49);
     const innerStarCircleRadius = chooseParamValue(15);
-    const outerStarPointTipDistance = chooseParamValue(50);
-    const outerStarPointStraightDistance = chooseParamValue(40);
+    const outerStarPointTipDistance = chooseParamValue(50, 47);
+    const outerStarPointStraightDistance = chooseParamValue(40, 43);
     const logoCenterX = chooseParamValue(50);
     const logoCenterY = chooseParamValue(50);
 
     // Controls the rotational position of the rightmost starpoint.
     const alphaStarParam = chooseParamValue(0.2675);
     // Controls the thickness of the starpoints.
-    const betaStarParam = chooseParamValue(0.06);
+    const betaStarParam = chooseParamValue(0.06, 0.03);
     // Controls how close the starpoints are to each other.
     const gammaStarParam = chooseParamValue(15.7);
 
