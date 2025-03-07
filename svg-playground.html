@@ -23,16 +23,16 @@
     const gammaStarParam = chooseParamValue(15.7);
 
     const darkPyramidFaceBottomFrontLeftToTopDeltaX =
-        chooseParamValue(7);
+        chooseParamValue(7, 6.8);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX =
-        chooseParamValue(4.4);
+        chooseParamValue(4.4, 4.6);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY =
         chooseParamValue(3.4);
 
     const darkPyramidFaceToDarkPlatformFaceDeltaY =
-        chooseParamValue(3.6);
+        chooseParamValue(3.6, 3.6);
 
-    const brightPlatformFaceBottomLeftToRightDeltaX = chooseParamValue(49);
+    const brightPlatformFaceBottomLeftToRightDeltaX = chooseParamValue(49, 48.5);
 
     function chooseParamValue(defaultParamValue, alternateParamValue = null) {
       return useAlternateParamValues ?
