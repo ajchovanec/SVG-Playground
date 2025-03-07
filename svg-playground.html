@@ -245,7 +245,6 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
-      // TODO: Remove - 1.
       let [brightPlatformFaceBottomFrontLeftX, brightPlatformFaceBottomFrontLeftY] =
           computeLineAndCircleIntersections(
               darkPlatformFaceTopFrontLeftX,
@@ -253,15 +252,14 @@
               pyramidFrontLeftEdgeSlope,
               /* cx= */ logoCenterX,
               /* cy= */ logoCenterY,
-              outerCircleRadius - 1)[1];
+              outerCircleRadius)[1];
 
-      // TODO: Remove - 1.
       let brightPlatformFaceBottomFrontRightX =
           darkPlatformFaceBottomFrontLeftX
               + brightPlatformFaceBottomLeftToRightDeltaX;
       let brightPlatformFaceBottomFrontRightY =
           Math.sqrt(
-              Math.pow(outerCircleRadius - 1, 2)
+              Math.pow(outerCircleRadius, 2)
                   - Math.pow(
                       brightPlatformFaceBottomFrontRightX - logoCenterX, 2))
           + logoCenterY;
@@ -326,7 +324,6 @@
            ${darkPlatformFaceBottomBackLeftX * percentToPixelsFactor}
            ${darkPlatformFaceBottomBackLeftY * percentToPixelsFactor}`);
       darkPlatformPath.setAttribute('stroke', 'black');
-      //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       darkPlatformPath.setAttribute('fill', 'black');
       drawingMask.append(darkPlatformPath);
 
@@ -375,7 +372,6 @@
 
       let brightPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
-      // TODO: Remove - 1.
       brightPlatformPath.setAttribute(
         'd',
         `M ${brightPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
@@ -386,12 +382,14 @@
            ${darkPlatformFaceTopFrontRightY * percentToPixelsFactor}
          L ${brightPlatformFaceBottomFrontRightX * percentToPixelsFactor}
            ${brightPlatformFaceBottomFrontRightY * percentToPixelsFactor}
-         A ${(outerCircleRadius - 1) * percentToPixelsFactor}
-           ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
+         A ${outerCircleRadius * percentToPixelsFactor}
+           ${outerCircleRadius * percentToPixelsFactor} 0 0 1
            ${brightPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
            ${brightPlatformFaceBottomFrontLeftY * percentToPixelsFactor}`);
       brightPlatformPath.setAttribute('stroke', 'white');
-      //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
+      // Setting a stroke-width value greater than 1 prevents the appearance of
+      // fine lines where shapes of the same color overlap.
+      brightPlatformPath.setAttribute('stroke-width', '1.5');
       brightPlatformPath.setAttribute('fill', 'white');
       drawingMask.append(brightPlatformPath);
 
