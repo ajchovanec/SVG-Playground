@@ -245,6 +245,17 @@
               /* cy= */ logoCenterY,
               outerCircleRadius - 1)[1];
 
+      // TODO: Remove - 1.
+      let [brightPlatformFaceBottomFrontLeftX, brightPlatformFaceBottomFrontLeftY] =
+          computeLineAndCircleIntersections(
+              darkPlatformFaceTopFrontLeftX,
+              darkPlatformFaceTopFrontLeftY,
+              pyramidFrontLeftEdgeSlope,
+              /* cx= */ logoCenterX,
+              /* cy= */ logoCenterY,
+              outerCircleRadius - 1)[1];
+
+      // TODO: Remove - 1.
       let brightPlatformFaceBottomFrontRightX =
           darkPlatformFaceBottomFrontLeftX
               + brightPlatformFaceBottomLeftToRightDeltaX;
@@ -364,10 +375,11 @@
 
       let brightPlatformPath =
           document.createElementNS("http://www.w3.org/2000/svg", 'path');
+      // TODO: Remove - 1.
       brightPlatformPath.setAttribute(
         'd',
-        `M ${darkPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
-           ${darkPlatformFaceBottomFrontLeftY * percentToPixelsFactor}
+        `M ${brightPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${brightPlatformFaceBottomFrontLeftY * percentToPixelsFactor}
          L ${brightPlatformFaceTopFrontLeftX * percentToPixelsFactor}
            ${brightPlatformFaceTopFrontLeftY * percentToPixelsFactor}
          L ${darkPlatformFaceTopFrontRightX * percentToPixelsFactor}
@@ -376,8 +388,8 @@
            ${brightPlatformFaceBottomFrontRightY * percentToPixelsFactor}
          A ${(outerCircleRadius - 1) * percentToPixelsFactor}
            ${(outerCircleRadius - 1) * percentToPixelsFactor} 0 0 1
-           ${darkPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
-           ${darkPlatformFaceBottomFrontLeftY * percentToPixelsFactor}`);
+           ${brightPlatformFaceBottomFrontLeftX * percentToPixelsFactor}
+           ${brightPlatformFaceBottomFrontLeftY * percentToPixelsFactor}`);
       brightPlatformPath.setAttribute('stroke', 'white');
       //darkPlatformPath.setAttribute('stroke-linejoin', 'round');
       brightPlatformPath.setAttribute('fill', 'white');
