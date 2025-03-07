@@ -10,29 +10,29 @@
 
     const outerCircleRadius = chooseParamValue(49);
     const innerStarCircleRadius = chooseParamValue(15);
-    const outerStarPointTipDistance = chooseParamValue(50, 47);
-    const outerStarPointStraightDistance = chooseParamValue(40, 44);
+    const outerStarPointTipDistance = chooseParamValue(47);
+    const outerStarPointStraightDistance = chooseParamValue(44);
     const logoCenterX = chooseParamValue(50);
     const logoCenterY = chooseParamValue(50);
 
     // Controls the rotational position of the rightmost starpoint.
     const alphaStarParam = chooseParamValue(0.2675);
     // Controls the thickness of the starpoints.
-    const betaStarParam = chooseParamValue(0.06, 0.03);
+    const betaStarParam = chooseParamValue(0.03);
     // Controls how close the starpoints are to each other.
     const gammaStarParam = chooseParamValue(15.7);
 
     const darkPyramidFaceBottomFrontLeftToTopDeltaX =
-        chooseParamValue(7, 6.8);
+        chooseParamValue(6.8);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaX =
-        chooseParamValue(4.4, 4.6);
+        chooseParamValue(4.6);
     const darkPyramidFaceBottomFrontLeftToBottomBackLeftDeltaY =
         chooseParamValue(3.4);
 
     const darkPyramidFaceToDarkPlatformFaceDeltaY =
-        chooseParamValue(3.6, 3.6);
+        chooseParamValue(3.6);
 
-    const brightPlatformFaceBottomLeftToRightDeltaX = chooseParamValue(49, 48.5);
+    const brightPlatformFaceBottomLeftToRightDeltaX = chooseParamValue(48.5);
 
     function chooseParamValue(defaultParamValue, alternateParamValue = null) {
       return useAlternateParamValues ?
