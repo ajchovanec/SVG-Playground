@@ -49,8 +49,6 @@
       position: relative;
       top: 0;
       left: 0;
-      height: 700px;
-      width: 700px;
     }
     .layer {
       position: absolute;
@@ -80,6 +78,11 @@
       <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
+      let parent = document.getElementsByClassName('parent')[0];
+      parent.setAttribute(
+          'style',
+          `height:${100 * percentToPixelsFactor}; width:${100 * percentToPixelsFactor}`);
+
       let background = document.getElementsByClassName('background')[0];
       background.setAttribute('style', `background-color:${backgroundColor}`);
 
