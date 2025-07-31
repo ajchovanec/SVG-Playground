@@ -92,6 +92,10 @@
       let drawing = document.getElementsByClassName('drawing')[0];
       drawing.setAttribute('style', `opacity:${drawingOpacity}`);
 
+      drawing.addEventListener('click', function() {
+        console.log('Click on drawing detected.');
+      });
+
       let drawingMask =
           document.createElementNS("http://www.w3.org/2000/svg", 'mask');
       drawingMask.setAttribute('id', 'drawingMask');
