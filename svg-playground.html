@@ -46,7 +46,7 @@
   </script>
   <style type="text/css">
     .parent {
-      position: relative;
+      position: absolute;
       top: 0;
       left: 0;
     }
@@ -68,32 +68,40 @@
     .drawing {
       z-index: 3;
     }
+    .exported {
+      position: absolute;
+      opacity: 1;
+      background-color: black;
+    }
   </style>
 </head>
 <body>
+  <div class="exported"></div>
   <div class="parent">
-    <div class="background layer" />
+    <div class="background layer"></div>
     <img class="template layer" src="svg-template.png" />
     <svg class="drawing layer">
       <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
       drawSvg();
+      exportSvg();
 
       function drawSvg() {
         let parent = document.getElementsByClassName('parent')[0];
         parent.setAttribute(
             'style',
-            `height:${100 * percentToPixelsFactor}; width:${100 * percentToPixelsFactor}`);
+            `height: ${100 * percentToPixelsFactor};
+             width: ${100 * percentToPixelsFactor}`);
 
         let background = document.getElementsByClassName('background')[0];
-        background.setAttribute('style', `background-color:${backgroundColor}`);
+        background.setAttribute('style', `background-color: ${backgroundColor}`);
 
         let template = document.getElementsByClassName('template')[0];
-        template.setAttribute('style', `opacity:${templateOpacity}`);
+        template.setAttribute('style', `opacity: ${templateOpacity}`);
 
         let drawing = document.getElementsByClassName('drawing')[0];
-        drawing.setAttribute('style', `opacity:${drawingOpacity}`);
+        drawing.setAttribute('style', `opacity: ${drawingOpacity}`);
 
         drawing.addEventListener('click', function() {
           console.log('Click on drawing detected.');
@@ -416,6 +424,29 @@
             + (darkPlatformFaceTopFrontLeftY - darkPlatformFaceTopBackLeftY));
         console.log("B2: "
             + (darkPlatformFaceTopFrontRightY - darkPlatformFaceTopBackRightY));
+      }
+
+      function exportSvg() {
+        let drawing = document.getElementsByClassName('drawing')[0];
+        const drawingString = new XMLSerializer().serializeToString(drawing);
+        const drawingDataUrl =
+            `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(drawingString)))}`
+        console.log('Drawing data URL:');
+        console.log(drawingDataUrl);
+
+        let exported = document.getElementsByClassName('exported')[0];
+        exported.setAttribute(
+            'style',
+            `top: 0;
+             left: ${100 * percentToPixelsFactor};
+             height: ${100 * percentToPixelsFactor};
+             width: ${100 * percentToPixelsFactor}`);
+
+        const exportedImg = new Image();
+        exportedImg.setAttribute('height', '100%');
+        exportedImg.setAttribute('width', '100%');
+        exportedImg.src = drawingDataUrl;
+        exported.appendChild(exportedImg);
       }
 
       function computeLinesIntersection(x1, y1, slope1, x2, y2, slope2) {
