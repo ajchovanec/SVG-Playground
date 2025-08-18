@@ -230,9 +230,6 @@
 
             pyramidTopX = secondInnerX - 1;
             pyramidTopY = secondInnerY - 1 * pyramidFrontLeftEdgeSlope;
-            console.log(
-                'slope: ' + pyramidFrontLeftEdgeSlope + ', X: '
-                    + pyramidTopX + ', Y: ' + pyramidTopY);
           }
         }
 
@@ -414,16 +411,6 @@
         brightPlatformPath.setAttribute('stroke-width', '1.5');
         brightPlatformPath.setAttribute('fill', 'white');
         drawingMask.append(brightPlatformPath);
-
-        console.log("A1: "
-            + (darkPlatformFaceTopFrontLeftX - darkPlatformFaceTopBackLeftX));
-        console.log("A2: "
-            + (darkPlatformFaceTopFrontRightX - darkPlatformFaceTopBackRightX));
-
-        console.log("B1: "
-            + (darkPlatformFaceTopFrontLeftY - darkPlatformFaceTopBackLeftY));
-        console.log("B2: "
-            + (darkPlatformFaceTopFrontRightY - darkPlatformFaceTopBackRightY));
       }
 
       function exportSvg() {
