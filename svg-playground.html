@@ -45,7 +45,7 @@
     }
   </script>
   <style type="text/css">
-    .parent {
+    .playground {
       position: absolute;
       top: 0;
       left: 0;
@@ -77,19 +77,20 @@
 </head>
 <body>
   <div class="exported"></div>
-  <div class="parent">
+  <div class="playground">
     <div class="background layer"></div>
     <img class="template layer" src="svg-template.png" />
     <svg class="drawing layer">
       <!-- SVG content is added programmatically below. -->
     </svg>
     <script>
+      setUpPlayground();
       drawSvg();
       exportSvg();
 
-      function drawSvg() {
-        let parent = document.getElementsByClassName('parent')[0];
-        parent.setAttribute(
+      function setUpPlayground() {
+        let playground = document.getElementsByClassName('playground')[0];
+        playground.setAttribute(
             'style',
             `height: ${100 * percentToPixelsFactor};
              width: ${100 * percentToPixelsFactor}`);
@@ -99,7 +100,9 @@
 
         let template = document.getElementsByClassName('template')[0];
         template.setAttribute('style', `opacity: ${templateOpacity}`);
+      }
 
+      function drawSvg() {
         let drawing = document.getElementsByClassName('drawing')[0];
         drawing.setAttribute('style', `opacity: ${drawingOpacity}`);
 
