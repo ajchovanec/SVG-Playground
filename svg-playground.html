@@ -3,7 +3,7 @@
     const logoColor = 'white';
     const backgroundColor = 'green';
     const templateOpacity = 0.5;
-    const drawingOpacity = 0.5;
+    const drawingOpacity = 1;
     const useAlternateParamValues = true;
 
     const percentToPixelsFactor = chooseParamValue(7);
@@ -63,10 +63,10 @@
       opacity: 1;
     }
     .template {
-      z-index: 2;
+      z-index: 3;
     }
     .drawing {
-      z-index: 3;
+      z-index: 2;
     }
     .export-link {
       position: absolute;
@@ -79,7 +79,7 @@
   <a class="export-link"></a>
   <div class="playground">
     <div class="background layer"></div>
-    <img class="template layer" src="svg-template.png" />
+    <img class="template layer" src="svg-template-red.png" />
     <svg class="drawing layer">
       <!-- SVG content is added programmatically below. -->
     </svg>
