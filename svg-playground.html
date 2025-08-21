@@ -85,8 +85,8 @@
     </svg>
     <script>
       setUpPlayground();
-      drawSvg();
-      exportSvgAsPngFile();
+      drawFidelityLogo();
+      exportDrawingAsPngFile();
 
       function setUpPlayground() {
         let playground = document.getElementsByClassName('playground')[0];
@@ -102,7 +102,44 @@
         template.setAttribute('style', `opacity: ${templateOpacity}`);
       }
 
-      function drawSvg() {
+      function exportDrawingAsPngFile() {
+        const drawing = document.getElementsByClassName('drawing')[0];
+        const drawingString = new XMLSerializer().serializeToString(drawing);
+        const drawingDataUrl =
+            `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(drawingString)))}`
+        console.log('Drawing data URL:');
+        console.log(drawingDataUrl);
+
+        const exportLink = document.getElementsByClassName('export-link')[0];
+        exportLink.setAttribute(
+            'style',
+            `top: 0;
+             left: ${100 * percentToPixelsFactor};
+             height: ${100 * percentToPixelsFactor};
+             width: ${100 * percentToPixelsFactor}`);
+
+        const exportLinkImg = new Image();
+        exportLinkImg.setAttribute('height', '100%');
+        exportLinkImg.setAttribute('width', '100%');
+        exportLinkImg.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = exportLinkImg.width;
+          canvas.height = exportLinkImg.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(exportLinkImg, 0, 0);
+
+          const pngDataUrl = canvas.toDataURL('image/png');
+          console.log('PNG data URL:');
+          console.log(pngDataUrl);
+
+          exportLink.href = pngDataUrl;
+          exportLink.download = 'svg-playground.png';
+        };
+        exportLinkImg.src = drawingDataUrl;
+        exportLink.appendChild(exportLinkImg);
+      }
+
+      function drawFidelityLogo() {
         let drawing = document.getElementsByClassName('drawing')[0];
         drawing.setAttribute('style', `opacity: ${drawingOpacity}`);
 
@@ -410,43 +447,6 @@
         brightPlatformPath.setAttribute('stroke-width', '1.5');
         brightPlatformPath.setAttribute('fill', 'white');
         drawingMask.append(brightPlatformPath);
-      }
-
-      function exportSvgAsPngFile() {
-        const drawing = document.getElementsByClassName('drawing')[0];
-        const drawingString = new XMLSerializer().serializeToString(drawing);
-        const drawingDataUrl =
-            `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(drawingString)))}`
-        console.log('Drawing data URL:');
-        console.log(drawingDataUrl);
-
-        const exportLink = document.getElementsByClassName('export-link')[0];
-        exportLink.setAttribute(
-            'style',
-            `top: 0;
-             left: ${100 * percentToPixelsFactor};
-             height: ${100 * percentToPixelsFactor};
-             width: ${100 * percentToPixelsFactor}`);
-
-        const exportLinkImg = new Image();
-        exportLinkImg.setAttribute('height', '100%');
-        exportLinkImg.setAttribute('width', '100%');
-        exportLinkImg.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = exportLinkImg.width;
-          canvas.height = exportLinkImg.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(exportLinkImg, 0, 0);
-
-          const pngDataUrl = canvas.toDataURL('image/png');
-          console.log('PNG data URL:');
-          console.log(pngDataUrl);
-
-          exportLink.href = pngDataUrl;
-          exportLink.download = 'svg-playground.png';
-        };
-        exportLinkImg.src = drawingDataUrl;
-        exportLink.appendChild(exportLinkImg);
       }
 
       function computeLinesIntersection(x1, y1, slope1, x2, y2, slope2) {
